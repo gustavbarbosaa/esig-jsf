@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                        http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+
+    <persistence-unit name="esig" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Lista de entidades (verifique os pacotes exatos) -->
+        <class>models.Cargo</class>
+        <class>models.Vencimento</class>
+        <class>models.CargoVencimento</class>
+        <class>models.Pessoa</class>
+
+        <properties>
+            <!-- Config PostgreSQL -->
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:postgresql://localhost:5433/esig_jsf?currentSchema=public"/>
+            <property name="jakarta.persistence.jdbc.user" value="postgres"/>
+            <property name="jakarta.persistence.jdbc.password" value="postgres"/>
+            <property name="jakarta.persistence.jdbc.driver"
+                      value="org.postgresql.Driver"/>
+
+            <!-- Otimizações para PostgreSQL -->
+            <property name="hibernate.dialect"
+                      value="org.hibernate.dialect.PostgreSQL10Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+
+            <!-- Configurações recomendadas -->
+            <property name="hibernate.jdbc.time_zone" value="UTC"/>
+            <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
+
+            <property name="logging.level.org.hibernate.SQL" value="DEBUG"/>
+            <property name="logging.level.org.hibernate.type.descriptor.sql.BasicBinder" value="TRACE"/>
+        </properties>
+    </persistence-unit>
+</persistence>
