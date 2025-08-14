@@ -29,4 +29,5 @@
     <listener>
         <listener-class>config.JPAInitializer</listener-class>
     </listener>
+
 </web-app>

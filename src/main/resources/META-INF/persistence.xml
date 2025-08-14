@@ -36,6 +36,7 @@
 
             <property name="logging.level.org.hibernate.SQL" value="DEBUG"/>
             <property name="logging.level.org.hibernate.type.descriptor.sql.BasicBinder" value="TRACE"/>
+
         </properties>
     </persistence-unit>
 </persistence>
