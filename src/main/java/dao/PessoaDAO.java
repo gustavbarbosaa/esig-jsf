@@ -21,9 +21,10 @@ public class PessoaDAO {
 
     public List<Pessoa> getAll() {
         EntityManager em = JPAConfig.getEntityManager();
-        TypedQuery<Pessoa> query = em.createQuery("SELECT p FROM Pessoa p", Pessoa.class);
-        List<Pessoa> pessoas = query.getResultList();
-        em.close();
-        return pessoas;
+        TypedQuery<Pessoa> query = em.createQuery(
+                "SELECT p FROM Pessoa p",
+                Pessoa.class
+        );
+        return query.getResultList();
     }
 }

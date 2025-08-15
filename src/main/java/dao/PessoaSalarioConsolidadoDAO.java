@@ -2,7 +2,6 @@ package dao;
 
 import config.JPAConfig;
 import models.PessoaSalarioConsolidado;
-import services.PessoaSalarioConsolidadoService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -43,40 +42,6 @@ public class PessoaSalarioConsolidadoDAO {
                 transaction.rollback();
             }
             throw new RuntimeException("Erro ao salvar ou atualizar o registro.", e);
-        } finally {
-            em.close();
-        }
-    }
-
-    public void save(PessoaSalarioConsolidado pessoaSalarioConsolidado) {
-        EntityManager em = JPAConfig.getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        try {
-            transaction.begin();
-            em.persist(pessoaSalarioConsolidado);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            throw new RuntimeException("Erro ao salvar o registro.", e);
-        } finally {
-            em.close();
-        }
-    }
-
-    public void update(PessoaSalarioConsolidado pessoaSalarioConsolidado) {
-        EntityManager em = JPAConfig.getEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        try {
-            transaction.begin();
-            em.merge(pessoaSalarioConsolidado);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            throw new RuntimeException("Erro ao atualizar o registro.", e);
         } finally {
             em.close();
         }

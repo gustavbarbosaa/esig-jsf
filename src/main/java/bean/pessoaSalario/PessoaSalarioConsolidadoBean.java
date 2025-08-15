@@ -24,6 +24,7 @@ public class PessoaSalarioConsolidadoBean implements Serializable {
 
     @PostConstruct
     public void init() {
+
         this.pessoaSalarioConsolidadoService.preencheDadosBasicosPessoaSalarioConsolidado();
         this.pessoasConsolidadas = this.pessoaSalarioConsolidadoService.getAll();
     }

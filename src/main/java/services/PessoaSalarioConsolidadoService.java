@@ -2,12 +2,15 @@ package services;
 
 import dao.PessoaDAO;
 import dao.PessoaSalarioConsolidadoDAO;
+import enums.TipoVencimento;
+import models.Cargo;
 import models.Pessoa;
 import models.PessoaSalarioConsolidado;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 
 @ApplicationScoped
@@ -34,10 +37,26 @@ public class PessoaSalarioConsolidadoService {
             pessoaSalarioConsolidado.setPessoaId(pessoa.getId());
 
             if (pessoa.getCargo() != null) {
-                pessoaSalarioConsolidado.setNome_cargo(pessoa.getCargo().getNome());
+                Cargo cargo = pessoa.getCargo();
+                pessoaSalarioConsolidado.setNome_cargo(cargo.getNome());
+
+                pessoaSalarioConsolidado.setSalario(this.calcularSalario(pessoa));
             }
 
             this.pessoaSalarioConsolidadoDAO.saveOrUpdate(pessoaSalarioConsolidado);
         });
+    }
+
+    private BigDecimal calcularSalario(Pessoa pessoa) {
+        final BigDecimal[] salario = {BigDecimal.ZERO};
+        pessoa.getCargo().getVencimentos().forEach(vencimento -> {
+            if (vencimento.getVencimento().getTipoVencimento() == TipoVencimento.CREDITO) {
+                salario[0] = salario[0].add(vencimento.getVencimento().getValor());
+            } else {
+                salario[0] = salario[0].subtract(vencimento.getVencimento().getValor());
+            }
+        });
+
+        return salario[0];
     }
 }
