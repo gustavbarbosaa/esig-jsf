@@ -25,7 +25,7 @@ public class Pessoa {
     @Column(nullable=false)
     private String cidade;
 
-    @Column(nullable=false, unique = true)
+    @Column(nullable=false)
     private String email;
 
     @Column(nullable=false)
@@ -47,6 +47,6 @@ public class Pessoa {
     private LocalDate dataNascimento;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cargo_id", nullable = false)
+    @JoinColumn(name = "cargo_id")
     private Cargo cargo;
 }

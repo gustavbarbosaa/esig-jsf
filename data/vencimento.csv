@@ -1,0 +1,10 @@
+﻿id;descricao;valor;tipovencimento
+1;Vencimento Basico Estagiario;400;CREDITO
+2;Vencimento Basico Tecnico;1000;CREDITO
+3;Vencimento Basico Analista;2500;CREDITO
+4;Vencimento Basico Coordenador;5000;CREDITO
+5;Vencimento Basico Gerente;6500;CREDITO
+6;Gratificacao Coordenador;500;CREDITO
+7;Gratificacao Gerente;1000;CREDITO
+8;Plano de Saude;350;DEBITO
+9;Previdencia;11;DEBITO
