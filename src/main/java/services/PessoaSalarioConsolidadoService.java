@@ -1,5 +1,6 @@
 package services;
 
+import config.JPAConfig;
 import dao.PessoaDAO;
 import dao.PessoaSalarioConsolidadoDAO;
 import enums.TipoVencimento;
@@ -9,6 +10,7 @@ import models.PessoaSalarioConsolidado;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
@@ -21,8 +23,20 @@ public class PessoaSalarioConsolidadoService {
     @Inject
     private PessoaSalarioConsolidadoDAO pessoaSalarioConsolidadoDAO;
 
+    public PessoaSalarioConsolidado getById(int id) {
+        return this.pessoaSalarioConsolidadoDAO.getById(id);
+    }
+
     public List<PessoaSalarioConsolidado> getAll() {
         return this.pessoaSalarioConsolidadoDAO.getAll();
+    }
+
+    public List<PessoaSalarioConsolidado> getPaginatedList(int first, int pageSize, String sortField, boolean ascending) {
+        return this.pessoaSalarioConsolidadoDAO.getPaginated(first, pageSize, sortField, ascending);
+    }
+
+    public Long countAll() {
+        return this.pessoaSalarioConsolidadoDAO.countAll();
     }
 
     @Transactional

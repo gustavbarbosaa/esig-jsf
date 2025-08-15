@@ -3,31 +3,38 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
->
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>JSF no Tomcat (Jakarta EE 9 + Java 8)</title>
 </h:head>
 <h:body>
-    <h1>Olá, JSF 2.3 + Jakarta EE 9 + Java 8!</h1>
-    <h:outputText value="Funcionouu!" />
+    <div class="card">
+        <h:form>
+            <p:dataTable var="p"
+                         value="#{pessoaSalarioConsolidadoBean.lazyModel}" rows="10"
+                         paginator="true"
+                         paginatorPosition="both"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,{ShowAll|'Todos'}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} registros"
+            >
+                <f:facet name="paginatorTopLeft">
+                    <p:commandButton value="Recalcular salários" icon="pi pi-refresh" action="#{pessoaSalarioConsolidadoBean.recalcularSalarios()}"/>
+                </f:facet>
 
-    <h:dataTable value="#{pessoaSalarioConsolidadoBean.pessoasConsolidadas}" var="p">
-        <h:column>
-            <f:facet name="header">ID</f:facet>
-            <h:outputText value="#{p.pessoaId}" />
-        </h:column>
-        <h:column>
-            <f:facet name="header">Nome</f:facet>
-            <h:outputText value="#{p.nome_pessoa}" />
-        </h:column>
-        <h:column>
-            <f:facet name="header">Cargo</f:facet>
-            <h:outputText value="#{p.nome_cargo}" />
-        </h:column>
-        <h:column>
-            <f:facet name="header">Salario</f:facet>
-            <h:outputText value="#{p.salario}" />
-        </h:column>
-    </h:dataTable>
+                <p:column headerText="Nome">
+                    <h:outputText value="#{p.nome_pessoa}" />
+                </p:column>
+
+                <p:column headerText="Cargo">
+                    <h:outputText value="#{p.nome_cargo}" />
+                </p:column>
+
+                <p:column headerText="Salário">
+                    <h:outputText value="#{p.salario}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </div>
 </h:body>
 </html>
