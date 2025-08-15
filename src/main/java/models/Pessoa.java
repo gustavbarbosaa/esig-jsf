@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(nullable=false)
     private String nome;
@@ -46,7 +46,7 @@ public class Pessoa {
     @Column(nullable=false)
     private LocalDate dataNascimento;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cargo_id")
     private Cargo cargo;
 }

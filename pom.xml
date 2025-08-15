@@ -85,6 +85,13 @@
           <version>5.2.5</version>
       </dependency>
 
+      <dependency>
+          <groupId>org.primefaces</groupId>
+          <artifactId>primefaces</artifactId>
+          <version>15.0.0</version>
+          <classifier>javax</classifier>
+      </dependency>
+
   </dependencies>
   <build>
       <plugins>

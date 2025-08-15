@@ -18,11 +18,11 @@ public class CargoVencimento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cargo_id", nullable = false)
     private Cargo cargo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vencimento_id", nullable = false)
     private Vencimento vencimento;
 }

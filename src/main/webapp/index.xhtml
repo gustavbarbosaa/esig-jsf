@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
 <h:head>
     <title>JSF no Tomcat (Jakarta EE 9 + Java 8)</title>
 </h:head>
 <h:body>
     <h1>Olá, JSF 2.3 + Jakarta EE 9 + Java 8!</h1>
     <h:outputText value="Funcionouu!" />
+
+    <h:dataTable value="#{pessoaSalarioConsolidadoBean.pessoasConsolidadas}" var="p">
+        <h:column>
+            <f:facet name="header">ID</f:facet>
+            <h:outputText value="#{p.pessoaId}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">Nome</f:facet>
+            <h:outputText value="#{p.nome_pessoa}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">Cargo</f:facet>
+            <h:outputText value="#{p.nome_cargo}" />
+        </h:column>
+    </h:dataTable>
 </h:body>
 </html>
