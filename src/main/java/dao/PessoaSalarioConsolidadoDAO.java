@@ -67,20 +67,29 @@ public class PessoaSalarioConsolidadoDAO {
         }
     }
 
-    public void delete(PessoaSalarioConsolidado pessoaSalarioConsolidado) {
+    public void deleteAllSalarios() {
         EntityManager em = JPAConfig.getEntityManager();
         EntityTransaction transaction = em.getTransaction();
+
         try {
             transaction.begin();
-            em.remove(em.contains(pessoaSalarioConsolidado)
-                    ? pessoaSalarioConsolidado
-                    : em.merge(pessoaSalarioConsolidado));
+            em.createQuery("UPDATE FROM PessoaSalarioConsolidado p SET p.salario = 0").executeUpdate();
             transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            throw new RuntimeException("Erro ao remover o registro.", e);
+        } finally {
+            em.close();
+        }
+    }
+
+    public void deleteSalario(PessoaSalarioConsolidado pessoaSalarioConsolidado) {
+        EntityManager em = JPAConfig.getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        try {
+            transaction.begin();
+            em.createQuery("UPDATE FROM PessoaSalarioConsolidado p SET p.salario = 0 WHERE p.pessoaId = :pessoaId")
+                    .setParameter("pessoaId", pessoaSalarioConsolidado.getPessoaId())
+                    .executeUpdate();
+            transaction.commit();
         } finally {
             em.close();
         }

@@ -6,6 +6,7 @@ import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
 import services.PessoaSalarioConsolidadoService;
+import services.RelatorioService;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
@@ -23,6 +24,9 @@ public class PessoaSalarioConsolidadoBean implements Serializable {
     @Inject
     private PessoaSalarioConsolidadoService pessoaSalarioConsolidadoService;
 
+    @Inject
+    private RelatorioService relatorioService;
+
     private LazyDataModel<PessoaSalarioConsolidado> lazyModel;
 
     @PostConstruct
@@ -30,7 +34,19 @@ public class PessoaSalarioConsolidadoBean implements Serializable {
         this.lazyModel = new PessoaSalarioConsolidadoLazyModel(pessoaSalarioConsolidadoService);
     }
 
+    public void removerSalarioPessoa(PessoaSalarioConsolidado pessoaSalarioConsolidado) {
+        this.pessoaSalarioConsolidadoService.removeSalarioDaPessoaSelecionada(pessoaSalarioConsolidado);
+    }
+
+    public void removeTodosSalarios() {
+        this.pessoaSalarioConsolidadoService.removeTodosSalarios();
+    }
+
     public void recalcularSalarios() {
         this.pessoaSalarioConsolidadoService.preencheDadosBasicosPessoaSalarioConsolidado();
+    }
+
+    public void baixarRelatorio() {
+        this.relatorioService.gerarRelatoriosSalariosPDF();
     }
 }
