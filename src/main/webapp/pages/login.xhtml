@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Login - ESIG</title>
+    <style>
+        body {
+            font-family: var(--font-family);
+            background-color: var(--surface-ground);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-card {
+            max-width: 400px;
+            width: 100%;
+            padding: 2rem;
+            background: var(--surface-card);
+            border-radius: var(--border-radius);
+            box-shadow: var(--surface-shadow);
+        }
+
+        .login-title {
+            text-align: center;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            color: var(--text-color-secondary);
+            margin-top: 0;
+            margin-bottom: 2rem;
+        }
+
+        .ui-fluid .ui-panelgrid tr td {
+            padding: 0.5rem 0;
+        }
+
+        .login-button {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--primary-color-text);
+            width: 100%;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="login-card">
+        <h:form>
+            <div>
+                <h3 class="login-title">Seja bem vindo</h3>
+                <p class="login-subtitle">Preencha o formulário abaixo para acessar a plataforma</p>
+            </div>
+
+            <h:panelGrid columns="2" cellpadding="5" styleClass="ui-fluid">
+                <p:outputLabel for="usuario" value="Usuário" />
+                <p:inputText id="usuario" value="#{loginBean.usuario}" required="true" />
+
+                <p:outputLabel for="senha" value="Senha" />
+                <p:password id="senha" value="#{loginBean.senha}" required="true" feedback="false" />
+            </h:panelGrid>
+
+            <p:commandButton value="Entrar"
+                             action="#{loginBean.autenticar()}"
+                             update="@form"
+                             ajax="false"
+                             styleClass="login-button mt-4" />
+        </h:form>
+    </div>
+</h:body>
+</html>

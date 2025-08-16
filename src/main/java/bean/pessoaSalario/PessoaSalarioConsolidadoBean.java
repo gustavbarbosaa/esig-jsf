@@ -14,18 +14,18 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
 
 @Named
 @ViewScoped
 @Data
 public class PessoaSalarioConsolidadoBean implements Serializable {
-    @Inject
-    private PessoaSalarioConsolidadoService pessoaSalarioConsolidadoService;
+    private static final long serialVersionUID = 1L;
 
     @Inject
-    private RelatorioService relatorioService;
+    private transient PessoaSalarioConsolidadoService pessoaSalarioConsolidadoService;
+
+    @Inject
+    private transient RelatorioService relatorioService;
 
     private LazyDataModel<PessoaSalarioConsolidado> lazyModel;
 
@@ -40,6 +40,10 @@ public class PessoaSalarioConsolidadoBean implements Serializable {
 
     public void removeTodosSalarios() {
         this.pessoaSalarioConsolidadoService.removeTodosSalarios();
+    }
+
+    public void calcularSalarioPessoa(PessoaSalarioConsolidado pessoaSalarioConsolidado) {
+        this.pessoaSalarioConsolidadoService.calcularSalarioPessoa(pessoaSalarioConsolidado);
     }
 
     public void recalcularSalarios() {

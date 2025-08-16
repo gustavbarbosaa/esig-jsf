@@ -1,5 +1,6 @@
 package services;
 
+import config.JPAConfig;
 import dao.PessoaDAO;
 import dao.PessoaSalarioConsolidadoDAO;
 import enums.TipoVencimento;
@@ -9,6 +10,7 @@ import models.PessoaSalarioConsolidado;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
@@ -45,6 +47,30 @@ public class PessoaSalarioConsolidadoService {
     @Transactional
     public void removeTodosSalarios() {
         this.pessoaSalarioConsolidadoDAO.deleteAllSalarios();
+    }
+
+    public void calcularSalarioPessoa(PessoaSalarioConsolidado pessoaSalarioConsolidado) {
+        EntityManager em = JPAConfig.getEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            Pessoa pessoa = em.find(Pessoa.class, pessoaSalarioConsolidado.getPessoaId());
+
+            if (pessoaSalarioConsolidado.getSalario() == null
+                    || BigDecimal.ZERO.compareTo(pessoaSalarioConsolidado.getSalario()) == 0) {
+
+                BigDecimal salario = calcularSalario(pessoa);
+                pessoaSalarioConsolidado.setSalario(salario);
+                em.merge(pessoaSalarioConsolidado);
+            }
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
     }
 
     @Transactional
