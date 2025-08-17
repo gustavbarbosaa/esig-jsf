@@ -6,11 +6,15 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -21,11 +25,8 @@ public class RelatorioService {
     @Inject
     private PessoaSalarioConsolidadoService pessoaSalarioConsolidadoService;
 
-    public void gerarRelatoriosSalariosPDF() {
+    public StreamedContent gerarRelatoriosSalariosPDF() {
         try {
-            FacesContext context = FacesContext.getCurrentInstance();
-            HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
-
             InputStream inputStream = getClass().getResourceAsStream("/relatorios/salarios.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
 
@@ -34,18 +35,22 @@ public class RelatorioService {
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, new HashMap<>(), dataSource);
 
-            response.setContentType("application/pdf");
-            response.setHeader("Content-Disposition", "inline; filename=\"relatorio_salarios.pdf\"");
-
-            OutputStream outputStream = response.getOutputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
             JRPdfExporter exporter = new JRPdfExporter();
             exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
+            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(baos));
             exporter.exportReport();
 
-            context.responseComplete();
+            return DefaultStreamedContent.builder()
+                    .name("relatorio_salarios.pdf")
+                    .contentType("application/pdf")
+                    .stream(() -> new ByteArrayInputStream(baos.toByteArray()))
+                    .build();
+
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
+
 }

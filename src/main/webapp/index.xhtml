@@ -82,10 +82,23 @@
 
                 <p:commandButton value="Baixar relatório"
                                  icon="pi pi-file-pdf"
-                                 action="#{pessoaSalarioConsolidadoBean.baixarRelatorio()}"
-                                 update="@form"
                                  ajax="false"
-                                 styleClass="recalcular-btn ui-button-primary" />
+                                 onclick="PF('dlg1').show()"
+                                 styleClass="ui-button-primary">
+                    <p:fileDownload value="#{pessoaSalarioConsolidadoBean.baixarRelatorio()}" />
+                </p:commandButton>
+
+                <p:dialog id="dlg1"
+                          header="Preparando relatório"
+                          widgetVar="dlg1"
+                          modal="true"
+                          closable="false"
+                          draggable="false"
+                          resizable="false"
+                          minHeight="40" width="350"
+                          showEffect="fade" hideEffect="fade">
+                    <p class="m-0">Espere um pouco. O relatório está sendo preparado!</p>
+                </p:dialog>
 
                 <p:commandButton value="Remover todos salários"
                                  icon="pi pi-trash"
