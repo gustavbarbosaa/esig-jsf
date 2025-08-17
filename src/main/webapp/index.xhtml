@@ -134,18 +134,20 @@
                     </h:outputText>
                 </p:column>
 
-                <p:column headerText="Ações" style="width: 20%; text-align: right;">
-                    <p:commandButton icon="pi pi-trash"
-                                     action="#{pessoaSalarioConsolidadoBean.removerSalarioPessoa(p)}"
-                                     update=":salariosForm:salariosTable"
-                                     process="@this"
-                                     styleClass="recalcular-btn ui-button-danger" />
+                <p:column headerText="Ações" style="text-align:center;">
+                    <div style="display: flex; gap: .5rem; justify-content: center;">
+                        <p:commandButton icon="pi pi-refresh"
+                                         action="#{pessoaSalarioConsolidadoBean.calcularSalarioPessoa(p)}"
+                                         update=":salariosForm:salariosTable"
+                                         process="@this"
+                                         styleClass="ui-button ui-button-info" />
 
-                    <p:commandButton icon="pi pi-refresh"
-                                     action="#{pessoaSalarioConsolidadoBean.calcularSalarioPessoa(p)}"
-                                     update=":salariosForm:salariosTable"
-                                     process="@this"
-                                     styleClass="recalcular-btn ui-button-info" />
+                        <p:commandButton icon="pi pi-trash"
+                                         action="#{pessoaSalarioConsolidadoBean.removerSalarioPessoa(p)}"
+                                         update=":salariosForm:salariosTable"
+                                         process="@this"
+                                         styleClass="ui-button ui-button-danger" />
+                    </div>
                 </p:column>
             </p:dataTable>
         </h:form>

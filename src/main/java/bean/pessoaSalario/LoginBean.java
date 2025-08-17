@@ -41,6 +41,9 @@ public class LoginBean implements Serializable {
         }
 
         if (encoder.matches(this.senha, pessoa.getSenha())) {
+            FacesContext.getCurrentInstance().getExternalContext()
+                    .getSessionMap().put("usuarioLogado", pessoa);
+
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Login bem-sucedido!", "Bem-vindo, " + usuario));
 

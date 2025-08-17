@@ -4,74 +4,100 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+
 <h:head>
     <title>Login - ESIG</title>
     <style>
         body {
-            font-family: var(--font-family);
-            background-color: var(--surface-ground);
+            font-family: var(--font-family, Arial, sans-serif);
+            background-color: var(--surface-ground, #f4f4f9);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            margin: 0;
         }
 
-        .login-card {
-            max-width: 400px;
+        .card-login {
             width: 100%;
-            padding: 2rem;
-            background: var(--surface-card);
-            border-radius: var(--border-radius);
-            box-shadow: var(--surface-shadow);
+            max-width: 420px;
+            background: var(--surface-card, #fff);
+            border-radius: 8px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
 
-        .login-title {
-            text-align: center;
-            font-size: 1.75rem;
+        .title {
+            font-size: 1.6rem;
             font-weight: 700;
-            color: var(--text-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .login-subtitle {
+            color: var(--text-color, #333);
+            margin-bottom: 0.3rem;
             text-align: center;
-            color: var(--text-color-secondary);
-            margin-top: 0;
-            margin-bottom: 2rem;
         }
 
-        .ui-fluid .ui-panelgrid tr td {
-            padding: 0.5rem 0;
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--text-color-secondary, #666);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .field {
+            width: 100%;
+            margin-bottom: 1.5rem;
         }
 
         .login-button {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: var(--primary-color-text);
             width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+        }
+
+        .ui-inputfield {
+            width: 100% !important;
+            box-sizing: border-box;
+        }
+
+        .ui-password,
+        .ui-password input {
+            width: 100% !important;
         }
     </style>
 </h:head>
+
 <h:body>
-    <div class="login-card">
+    <div class="card-login">
         <h:form>
-            <div>
-                <h3 class="login-title">Seja bem vindo</h3>
-                <p class="login-subtitle">Preencha o formulário abaixo para acessar a plataforma</p>
+            <h3 class="title">Bem-vindo</h3>
+            <p class="subtitle">Entre com suas credenciais para acessar o sistema</p>
+
+            <div class="p-fluid">
+                <div class="field">
+                    <p:inputText id="usuario"
+                                 placeholder="Digite seu usuário"
+                                 value="#{loginBean.usuario}"
+                                 required="true"
+                                 style="width: 100%" />
+                </div>
+
+                <div class="field">
+                    <p:password id="senha"
+                                placeholder="Digite sua senha"
+                                value="#{loginBean.senha}"
+                                required="true"
+                                feedback="false"
+                                toggleMask="true"
+                                style="width: 100%" />
+                </div>
+
+                <p:commandButton value="Entrar"
+                                 action="#{loginBean.autenticar}"
+                                 ajax="false"
+                                 icon="pi pi-sign-in"
+                                 styleClass="login-button p-button-raised p-button-primary" />
             </div>
-
-            <h:panelGrid columns="2" cellpadding="5" styleClass="ui-fluid">
-                <p:outputLabel for="usuario" value="Usuário" />
-                <p:inputText id="usuario" value="#{loginBean.usuario}" required="true" />
-
-                <p:outputLabel for="senha" value="Senha" />
-                <p:password id="senha" value="#{loginBean.senha}" required="true" feedback="false" />
-            </h:panelGrid>
-
-            <p:commandButton value="Entrar"
-                             action="#{loginBean.autenticar()}"
-                             ajax="false"
-                             styleClass="login-button mt-4" />
         </h:form>
     </div>
 </h:body>
