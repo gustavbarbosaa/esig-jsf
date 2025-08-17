@@ -49,4 +49,7 @@ public class Pessoa {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cargo_id")
     private Cargo cargo;
+
+    @Column(nullable=true)
+    private String senha;
 }

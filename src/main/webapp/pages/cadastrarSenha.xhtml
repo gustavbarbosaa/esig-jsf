@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Cadastrar Senha</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .login-card {
+            max-width: 400px;
+            width: 100%;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .login-title {
+            text-align: center;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            color: #666;
+            margin-top: 0;
+            margin-bottom: 2rem;
+        }
+
+        .field {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .p-input-icon-left {
+            position: relative;
+            display: block;
+            width: 100%;
+        }
+
+        .p-input-icon-left .pi {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .p-input-icon-left input {
+            width: 100%;
+            padding-left: 2.5rem !important;
+        }
+
+        .login-button {
+            background-color: #3f51b5;
+            border: none;
+            color: #fff;
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .login-button:hover {
+            background-color: #303f9f;
+        }
+
+        .mt-2 {
+            margin-top: 1rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="login-card">
+        <h:form>
+            <p:messages id="messages" showDetail="true" closable="true" class="mb-4" />
+            <div>
+                <h3 class="login-title">Crie sua Senha</h3>
+                <p class="login-subtitle">Olá, #{cadastrarSenhaBean.pessoa.nome}. Preencha os campos abaixo.</p>
+            </div>
+
+            <div class="field">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-lock" />
+                    <p:password id="novaSenha" placeholder="Nova Senha" value="#{cadastrarSenhaBean.novaSenha}" required="true" feedback="false" />
+                </span>
+            </div>
+
+            <div class="field">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-lock" />
+                    <p:password id="confirmarSenha" placeholder="Confirmar Senha" value="#{cadastrarSenhaBean.confirmarSenha}" required="true" feedback="false" />
+                </span>
+            </div>
+
+            <p:commandButton value="Cadastrar Senha"
+                             action="#{cadastrarSenhaBean.cadastrarSenha()}"
+                             update="@form"
+                             styleClass="login-button mt-2" />
+        </h:form>
+    </div>
+</h:body>
+</html>
