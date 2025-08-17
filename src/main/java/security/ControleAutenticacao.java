@@ -27,7 +27,6 @@ public class ControleAutenticacao implements Filter {
         boolean loginRequest = requestURI.equals(loginURI);
         boolean cadastrarSenhaRequest = requestURI.equals(cadastrarSenhaURI);
 
-        // ✅ Liberar recursos estáticos
         boolean resourceRequest = requestURI.contains("javax.faces.resource")
                 || requestURI.startsWith(req.getContextPath() + "/resources/");
 
