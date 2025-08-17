@@ -5,6 +5,7 @@ import models.PessoaSalarioConsolidado;
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
+import org.primefaces.model.StreamedContent;
 import services.PessoaSalarioConsolidadoService;
 import services.RelatorioService;
 
@@ -50,7 +51,7 @@ public class PessoaSalarioConsolidadoBean implements Serializable {
         this.pessoaSalarioConsolidadoService.preencheDadosBasicosPessoaSalarioConsolidado();
     }
 
-    public void baixarRelatorio() {
-        this.relatorioService.gerarRelatoriosSalariosPDF();
+    public StreamedContent baixarRelatorio() {
+        return this.relatorioService.gerarRelatoriosSalariosPDF();
     }
 }

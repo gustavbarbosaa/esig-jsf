@@ -83,7 +83,11 @@
                 <p:commandButton value="Baixar relatório"
                                  icon="pi pi-file-pdf"
                                  ajax="false"
-                                 onclick="PF('dlg1').show()"
+                                 onclick="PrimeFaces.monitorDownload(
+                             function() { PF('dlg1').hide(); },
+                             function() { PF('dlg1').hide(); }
+                          );
+                          PF('dlg1').show();"
                                  styleClass="ui-button-primary">
                     <p:fileDownload value="#{pessoaSalarioConsolidadoBean.baixarRelatorio()}" />
                 </p:commandButton>
